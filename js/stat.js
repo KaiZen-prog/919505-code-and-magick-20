@@ -8,7 +8,8 @@ var CLOUD_GAP = 10;
 var SLOGAN_GAP = 30;
 var FONT_GAP = 16;
 var COLUMN_GAP_X = 40;
-var COLUMN_GAP_Y = 10;
+var COLUMN_GAP_Y = 20;
+var TIME_GAP = 10;
 var COLUMN_DISTANCE = 50;
 var BAR_HEIGHT = 150;
 var BAR_WIDTH = 40;
@@ -49,7 +50,7 @@ window.renderStatistics = function (ctx, players, times) {
   for (var i = 0; i < players.length; i++) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + COLUMN_GAP_X + (COLUMN_DISTANCE + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - COLUMN_GAP_Y);
-    ctx.fillText(Math.round(times[i]).toString(), CLOUD_X + COLUMN_GAP_X + (COLUMN_DISTANCE + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - COLUMN_GAP_Y - FONT_GAP - ((BAR_HEIGHT * times[i]) / maxTime) - COLUMN_GAP_Y);
+    ctx.fillText(Math.round(times[i]).toString(), CLOUD_X + COLUMN_GAP_X + (COLUMN_DISTANCE + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - COLUMN_GAP_Y - FONT_GAP - ((BAR_HEIGHT * times[i]) / maxTime) - TIME_GAP);
 
     if (players[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
