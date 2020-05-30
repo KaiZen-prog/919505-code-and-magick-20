@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [Николай Карнаев](https://up.htmlacademy.ru/javascript/20/user/919505).
-* Наставник: `Неизвестно`.
+* Наставник: [Святослав Родионов](https://htmlacademy.ru/profile/rodionsv).
 
 ---
 
