@@ -46,6 +46,7 @@ window.renderStatistics = function (ctx, players, times) {
   for (var i = 0; i < players.length; i++) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + GAP * 4 + (TEXT_WIDTH + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - GAP);
+    ctx.fillText(parseInt(times[i], 10).toString(), CLOUD_X + GAP * 4 + (TEXT_WIDTH + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - GAP - FONT_GAP - ((BAR_HEIGHT * times[i]) / maxTime) - GAP);
 
     if (players[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
