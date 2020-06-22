@@ -122,25 +122,19 @@ var closePopup = function () {
   setupWizardFireball.removeEventListener('click', onChangeFireBallColor);
 };
 
-setupOpen.onclick = function () {
-  openPopup();
-};
-
-setupOpen.onkeydown = function (evt) {
+setupOpen.addEventListener('click', openPopup);
+setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
     openPopup();
   }
-};
+});
 
-setupClose.onclick = function () {
-  closePopup();
-};
-
-setupClose.onkeydown = function (evt) {
+setupClose.addEventListener('click', closePopup);
+setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
     closePopup();
   }
-};
+});
 
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.valueMissing) {
