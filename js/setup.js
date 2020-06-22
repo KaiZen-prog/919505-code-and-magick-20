@@ -6,8 +6,12 @@ var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 1
 var WIZARD_EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARD_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARD_QUANTITY = 4;
+
 var MIN_NAME_LENGTH = 2;
 var MAX_NAME_LENGTH = 25;
+
+var KEY_CODE_ENTER = 13;
+var KEY_CODE_ESCAPE = 27;
 
 var userDialog = document.querySelector('.setup');
 
@@ -71,10 +75,10 @@ var setupWizardEyesInput = userDialog.querySelector('input[name="eyes-color"]');
 var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
 
 var onPopupKeyDown = function (evt) {
-  if ((evt.keyCode === 27) && (userNameInput !== document.activeElement)) {
+  if ((evt.keyCode === KEY_CODE_ESCAPE) && (userNameInput !== document.activeElement)) {
     evt.preventDefault();
     closePopup();
-  } else if ((evt.keyCode === 13) && (setupSubmit !== document.activeElement)) {
+  } else if ((evt.keyCode === KEY_CODE_ENTER) && (setupSubmit !== document.activeElement)) {
     evt.preventDefault();
   }
 };
@@ -104,6 +108,26 @@ var onChangeFireBallColor = function () {
   renderRandomBackGroundColor(setupWizardFireball, setupWizardFireballInput, backgroundColor);
 };
 
+var onOpenPopupClick = function () {
+  openPopup();
+};
+
+var onClosePopupClick = function () {
+  closePopup();
+};
+
+var onOpenPopupKeydown = function (evt) {
+  if (evt.keyCode === KEY_CODE_ENTER) {
+    openPopup();
+  }
+};
+
+var onClosePopupKeydown = function (evt) {
+  if (evt.keyCode === KEY_CODE_ENTER) {
+    closePopup();
+  }
+};
+
 var openPopup = function () {
   userDialog.classList.remove('hidden');
   document.addEventListener('keydown', onPopupKeyDown);
@@ -122,19 +146,11 @@ var closePopup = function () {
   setupWizardFireball.removeEventListener('click', onChangeFireBallColor);
 };
 
-setupOpen.addEventListener('click', openPopup);
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    openPopup();
-  }
-});
+setupOpen.addEventListener('click', onOpenPopupClick);
+setupOpen.addEventListener('keydown', onOpenPopupKeydown);
 
-setupClose.addEventListener('click', closePopup);
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    closePopup();
-  }
-});
+setupClose.addEventListener('click', onClosePopupClick);
+setupClose.addEventListener('keydown', onClosePopupKeydown);
 
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.valueMissing) {
