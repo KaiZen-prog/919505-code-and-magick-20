@@ -9,7 +9,6 @@
   var WIZARD_QUANTITY = 4;
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
   var setupSimilarList = window.dialog.userDialog.querySelector('.setup-similar-list');
 
   var createWizards = function () {
@@ -37,7 +36,6 @@
   };
 
   var fragment = document.createDocumentFragment();
-
   var wizards = createWizards();
 
   for (var i = 0; i < wizards.length; i++) {

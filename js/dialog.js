@@ -8,31 +8,10 @@
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
-  var setupOpen = document.querySelector('.setup-open');
-  var setupClose = userDialog.querySelector('.setup-close');
-
   var userNameInput = userDialog.querySelector('.setup-user-name');
   var setupSubmit = userDialog.querySelector('.setup-submit');
 
-  var setupWizardCoat = userDialog.querySelector('.setup-wizard .wizard-coat');
-  var setupWizardEyes = userDialog.querySelector('.setup-wizard .wizard-eyes');
-  var setupWizardFireball = userDialog.querySelector('.setup-fireball-wrap');
-  var setupWizardCoatInput = userDialog.querySelector('input[name="coat-color"]');
-  var setupWizardEyesInput = userDialog.querySelector('input[name="eyes-color"]');
-  var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
-
-  var onOpenPopupKeydown = function (evt) {
-    window.util.isEnterEvent(evt, onOpenPopup);
-  };
-
-  var onClosePopupKeydown = function (evt) {
-    window.util.isEnterEvent(evt, onClosePopup);
-  };
-
-  var onPopupKeyDown = function (evt) {
-    window.util.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
-  };
-
+  // Валидация полей
   var onUserNameInputInvalid = function () {
     if (userNameInput.validity.valueMissing) {
       userNameInput.setCustomValidity('Обязательное поле');
@@ -53,6 +32,14 @@
     }
   };
 
+  // Настройки внешнего вида мага
+  var setupWizardCoat = userDialog.querySelector('.setup-wizard .wizard-coat');
+  var setupWizardEyes = userDialog.querySelector('.setup-wizard .wizard-eyes');
+  var setupWizardFireball = userDialog.querySelector('.setup-fireball-wrap');
+  var setupWizardCoatInput = userDialog.querySelector('input[name="coat-color"]');
+  var setupWizardEyesInput = userDialog.querySelector('input[name="eyes-color"]');
+  var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
+
   var onChangeCoatColor = function () {
     window.renderWizards.colorize(setupWizardCoat, 'coat', setupWizardCoatInput);
   };
@@ -65,9 +52,31 @@
     window.renderWizards.colorize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
   };
 
+  // Открытие/закрытие окна настройки персонажа
+  var setupOpen = document.querySelector('.setup-open');
+  var setupClose = userDialog.querySelector('.setup-close');
+
+  var onOpenPopupKeydown = function (evt) {
+    window.util.isEnterEvent(evt, onOpenPopup);
+  };
+
+  var onClosePopupKeydown = function (evt) {
+    window.util.isEnterEvent(evt, onClosePopup);
+  };
+
+  var onPopupKeyDown = function (evt) {
+    window.util.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
+  };
+
   var onOpenPopup = function () {
+    // При каждом открытии окна настройки персонажа, возвращаем его на исходные координаты
+    userDialog.style.top = window.move.dialogTop;
+    userDialog.style.left = window.move.dialogLeft;
+
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupKeyDown);
+
+    window.move.dialogHandle.addEventListener('mousedown', window.move.onMouseDown);
 
     setupOpen.removeEventListener('click', onOpenPopup);
     setupOpen.removeEventListener('keydown', onOpenPopupKeydown);
@@ -86,6 +95,8 @@
   var onClosePopup = function () {
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupKeyDown);
+
+    window.move.dialogHandle.removeEventListener('mousedown', window.move.onMouseDown);
 
     setupOpen.addEventListener('click', onOpenPopup);
     setupOpen.addEventListener('keydown', onOpenPopupKeydown);
