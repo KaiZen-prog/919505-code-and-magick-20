@@ -4,7 +4,7 @@
   var MIN_NAME_LENGTH = 2;
   var MAX_NAME_LENGTH = 25;
 
-  var userDialog = document.querySelector('.setup');
+  var userDialog = window.utils.userDialog;
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -52,6 +52,11 @@
     window.renderWizards.colorize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
   };
 
+  // Обработчик поведения "ручки" окна персонажа, за которую мы можем его перетаскивать
+  var onDialogHandleMouseDown = function (evt) {
+    window.dialogHandle.onMouseDown(evt);
+  };
+
   // Открытие/закрытие окна настройки персонажа
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = userDialog.querySelector('.setup-close');
@@ -68,11 +73,13 @@
     window.utils.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
   };
 
+  var dialogHandle = window.utils.dialogHandle;
+
   var onOpenPopup = function () {
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupKeyDown);
 
-    window.move.dialogHandle.addEventListener('mousedown', window.move.onDialogHandleMouseDown);
+    dialogHandle.addEventListener('mousedown', onDialogHandleMouseDown);
 
     setupOpen.removeEventListener('click', onOpenPopup);
     setupOpen.removeEventListener('keydown', onOpenPopupKeydown);
@@ -90,13 +97,13 @@
 
   var onClosePopup = function () {
     // При каждом закрытии окна настройки персонажа, возвращаем его на исходные координаты
-    userDialog.style.top = window.move.dialogTop;
-    userDialog.style.left = window.move.dialogLeft;
+    userDialog.style.top = window.dialogHandle.top;
+    userDialog.style.left = window.dialogHandle.left;
 
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupKeyDown);
 
-    window.move.dialogHandle.removeEventListener('mousedown', window.move.onDialogHandleMouseDown);
+    dialogHandle.removeEventListener('mousedown', onDialogHandleMouseDown);
 
     setupOpen.addEventListener('click', onOpenPopup);
     setupOpen.addEventListener('keydown', onOpenPopupKeydown);
@@ -114,8 +121,4 @@
 
   setupOpen.addEventListener('click', onOpenPopup);
   setupOpen.addEventListener('keydown', onOpenPopupKeydown);
-
-  window.userDialog = {
-    userDialog: userDialog
-  };
 })();

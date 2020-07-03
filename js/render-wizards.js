@@ -8,8 +8,10 @@
   var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var WIZARD_QUANTITY = 4;
 
+  var userDialog = window.utils.userDialog;
+
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var setupSimilarList = window.userDialog.userDialog.querySelector('.setup-similar-list');
+  var setupSimilarList = userDialog.querySelector('.setup-similar-list');
 
   var createWizards = function () {
     var array = [];
@@ -43,7 +45,7 @@
   }
   setupSimilarList.appendChild(fragment);
 
-  window.userDialog.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
   window.renderWizards = {
     colorize: function (element, type, input) {

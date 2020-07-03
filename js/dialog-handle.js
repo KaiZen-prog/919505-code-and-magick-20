@@ -1,16 +1,17 @@
 'use strict';
 
 (function () {
-  var dialogHandle = window.userDialog.userDialog.querySelector('.upload');
+  var userDialog = window.utils.userDialog;
+  var dialogHandle = window.utils.dialogHandle;
 
-  window.move = {
-    dialogHandle: dialogHandle,
+  window.dialogHandle = {
+    handle: dialogHandle,
 
     // Запоминаем изначальное положение окна настройки персонажа
-    dialogTop: window.userDialog.userDialog.style.top,
-    dialogLeft: window.userDialog.userDialog.style.left,
+    top: userDialog.style.top,
+    left: userDialog.style.left,
 
-    onDialogHandleMouseDown: function (evt) {
+    onMouseDown: function (evt) {
       evt.preventDefault();
 
       var startCoords = {
@@ -20,7 +21,7 @@
 
       var dragged = false;
 
-      var onDialogHandleMouseMove = function (moveEvt) {
+      var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
 
         dragged = true;
@@ -34,15 +35,15 @@
           x: moveEvt.clientX,
           y: moveEvt.clientY
         };
-        window.userDialog.userDialog.style.top = (window.userDialog.userDialog.offsetTop - shift.y) + 'px';
-        window.userDialog.userDialog.style.left = (window.userDialog.userDialog.offsetLeft - shift.x) + 'px';
+        userDialog.style.top = (userDialog.offsetTop - shift.y) + 'px';
+        userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
       };
 
-      var onDialogHandleMouseUp = function (upEvt) {
+      var onMouseUp = function (upEvt) {
         upEvt.preventDefault();
 
-        document.removeEventListener('mousemove', onDialogHandleMouseMove);
-        document.removeEventListener('mouseup', onDialogHandleMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
 
         if (dragged) {
           var onClickPreventDefault = function (clickEvt) {
@@ -53,8 +54,8 @@
         }
       };
 
-      document.addEventListener('mousemove', onDialogHandleMouseMove);
-      document.addEventListener('mouseup', onDialogHandleMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     }
   };
 })();
