@@ -9,23 +9,23 @@
   var WIZARD_QUANTITY = 4;
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var setupSimilarList = window.dialog.userDialog.querySelector('.setup-similar-list');
+  var setupSimilarList = window.userDialog.userDialog.querySelector('.setup-similar-list');
 
   var createWizards = function () {
     var array = [];
 
     for (var i = 0; i < WIZARD_QUANTITY; i++) {
       var wizard = {
-        name: window.util.getRandom(WIZARD_NAMES) + ' ' + window.util.getRandom(WIZARD_SURNAMES),
-        coatColor: window.util.getRandom(WIZARD_COAT_COLORS),
-        eyeColor: window.util.getRandom(WIZARD_EYE_COLORS)
+        name: window.utils.getRandom(WIZARD_NAMES) + ' ' + window.utils.getRandom(WIZARD_SURNAMES),
+        coatColor: window.utils.getRandom(WIZARD_COAT_COLORS),
+        eyeColor: window.utils.getRandom(WIZARD_EYE_COLORS)
       };
       array.push(wizard);
     }
     return array;
   };
 
-  var renderWizard = function (wizard) {
+  var customizeWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -39,11 +39,11 @@
   var wizards = createWizards();
 
   for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
+    fragment.appendChild(customizeWizard(wizards[i]));
   }
   setupSimilarList.appendChild(fragment);
 
-  window.dialog.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  window.userDialog.userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
   window.renderWizards = {
     colorize: function (element, type, input) {
@@ -51,15 +51,15 @@
 
       switch (type) {
         case 'coat':
-          color = window.util.getRandom(WIZARD_COAT_COLORS);
+          color = window.utils.getRandom(WIZARD_COAT_COLORS);
           break;
 
         case 'eye':
-          color = window.util.getRandom(WIZARD_EYE_COLORS);
+          color = window.utils.getRandom(WIZARD_EYE_COLORS);
           break;
 
         case 'fireBall':
-          color = window.util.getRandom(WIZARD_FIREBALL_COLORS);
+          color = window.utils.getRandom(WIZARD_FIREBALL_COLORS);
           break;
       }
 

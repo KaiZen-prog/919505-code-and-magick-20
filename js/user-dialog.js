@@ -57,26 +57,22 @@
   var setupClose = userDialog.querySelector('.setup-close');
 
   var onOpenPopupKeydown = function (evt) {
-    window.util.isEnterEvent(evt, onOpenPopup);
+    window.utils.isEnterEvent(evt, onOpenPopup);
   };
 
   var onClosePopupKeydown = function (evt) {
-    window.util.isEnterEvent(evt, onClosePopup);
+    window.utils.isEnterEvent(evt, onClosePopup);
   };
 
   var onPopupKeyDown = function (evt) {
-    window.util.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
+    window.utils.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
   };
 
   var onOpenPopup = function () {
-    // При каждом открытии окна настройки персонажа, возвращаем его на исходные координаты
-    userDialog.style.top = window.move.dialogTop;
-    userDialog.style.left = window.move.dialogLeft;
-
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupKeyDown);
 
-    window.move.dialogHandle.addEventListener('mousedown', window.move.onMouseDown);
+    window.move.dialogHandle.addEventListener('mousedown', window.move.onDialogHandleMouseDown);
 
     setupOpen.removeEventListener('click', onOpenPopup);
     setupOpen.removeEventListener('keydown', onOpenPopupKeydown);
@@ -93,10 +89,14 @@
   };
 
   var onClosePopup = function () {
+    // При каждом закрытии окна настройки персонажа, возвращаем его на исходные координаты
+    userDialog.style.top = window.move.dialogTop;
+    userDialog.style.left = window.move.dialogLeft;
+
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupKeyDown);
 
-    window.move.dialogHandle.removeEventListener('mousedown', window.move.onMouseDown);
+    window.move.dialogHandle.removeEventListener('mousedown', window.move.onDialogHandleMouseDown);
 
     setupOpen.addEventListener('click', onOpenPopup);
     setupOpen.addEventListener('keydown', onOpenPopupKeydown);
@@ -115,7 +115,7 @@
   setupOpen.addEventListener('click', onOpenPopup);
   setupOpen.addEventListener('keydown', onOpenPopupKeydown);
 
-  window.dialog = {
+  window.userDialog = {
     userDialog: userDialog
   };
 })();
