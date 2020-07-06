@@ -5,8 +5,6 @@
   var dialogHandle = userDialog.querySelector('.upload');
 
   window.dialogHandle = {
-    handle: dialogHandle,
-
     // Запоминаем изначальное положение окна настройки персонажа
     top: userDialog.style.top,
     left: userDialog.style.left,
