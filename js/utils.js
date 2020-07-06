@@ -4,13 +4,8 @@
   var KEY_CODE_ENTER = 13;
   var KEY_CODE_ESCAPE = 27;
 
-  var userDialog = document.querySelector('.setup');
-
   window.utils = {
-    userDialog: userDialog,
-    dialogHandle: userDialog.querySelector('.upload'),
-
-    getRandom: function (array) {
+    getRandomArrayElement: function (array) {
       var rand = Math.floor(Math.random() * array.length);
       return array[rand];
     },

@@ -4,7 +4,7 @@
   var MIN_NAME_LENGTH = 2;
   var MAX_NAME_LENGTH = 25;
 
-  var userDialog = window.utils.userDialog;
+  var userDialog = document.querySelector('.setup');
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -41,15 +41,15 @@
   var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
 
   var onChangeCoatColor = function () {
-    window.renderWizards.colorize(setupWizardCoat, 'coat', setupWizardCoatInput);
+    window.colorizeWizard(setupWizardCoat, 'coat', setupWizardCoatInput);
   };
 
   var onChangeEyeColor = function () {
-    window.renderWizards.colorize(setupWizardEyes, 'eye', setupWizardEyesInput);
+    window.colorizeWizard(setupWizardEyes, 'eye', setupWizardEyesInput);
   };
 
   var onChangeFireBallColor = function () {
-    window.renderWizards.colorize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
+    window.colorizeWizard(setupWizardFireball, 'fireBall', setupWizardFireballInput);
   };
 
   // Обработчик поведения "ручки" окна персонажа, за которую мы можем его перетаскивать
@@ -73,7 +73,7 @@
     window.utils.onKeyDown(evt, onClosePopup, userNameInput, setupSubmit);
   };
 
-  var dialogHandle = window.utils.dialogHandle;
+  var dialogHandle = userDialog.querySelector('.upload');
 
   var onOpenPopup = function () {
     userDialog.classList.remove('hidden');

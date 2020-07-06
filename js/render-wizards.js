@@ -8,7 +8,7 @@
   var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var WIZARD_QUANTITY = 4;
 
-  var userDialog = window.utils.userDialog;
+  var userDialog = document.querySelector('.setup');
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var setupSimilarList = userDialog.querySelector('.setup-similar-list');
@@ -18,9 +18,9 @@
 
     for (var i = 0; i < WIZARD_QUANTITY; i++) {
       var wizard = {
-        name: window.utils.getRandom(WIZARD_NAMES) + ' ' + window.utils.getRandom(WIZARD_SURNAMES),
-        coatColor: window.utils.getRandom(WIZARD_COAT_COLORS),
-        eyeColor: window.utils.getRandom(WIZARD_EYE_COLORS)
+        name: window.utils.getRandomArrayElement(WIZARD_NAMES) + ' ' + window.utils.getRandomArrayElement(WIZARD_SURNAMES),
+        coatColor: window.utils.getRandomArrayElement(WIZARD_COAT_COLORS),
+        eyeColor: window.utils.getRandomArrayElement(WIZARD_EYE_COLORS)
       };
       array.push(wizard);
     }
@@ -47,31 +47,29 @@
 
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
-  window.renderWizards = {
-    colorize: function (element, type, input) {
-      var color;
+  window.colorizeWizard = function (element, type, input) {
+    var color;
 
-      switch (type) {
-        case 'coat':
-          color = window.utils.getRandom(WIZARD_COAT_COLORS);
-          break;
+    switch (type) {
+      case 'coat':
+        color = window.utils.getRandomArrayElement(WIZARD_COAT_COLORS);
+        break;
 
-        case 'eye':
-          color = window.utils.getRandom(WIZARD_EYE_COLORS);
-          break;
+      case 'eye':
+        color = window.utils.getRandomArrayElement(WIZARD_EYE_COLORS);
+        break;
 
-        case 'fireBall':
-          color = window.utils.getRandom(WIZARD_FIREBALL_COLORS);
-          break;
-      }
-
-      if (element.tagName.toLowerCase() === 'div') {
-        element.style.backgroundColor = color;
-      } else {
-        element.style.fill = color;
-      }
-
-      input.value = color;
+      case 'fireBall':
+        color = window.utils.getRandomArrayElement(WIZARD_FIREBALL_COLORS);
+        break;
     }
+
+    if (element.tagName.toLowerCase() === 'div') {
+      element.style.backgroundColor = color;
+    } else {
+      element.style.fill = color;
+    }
+
+    input.value = color;
   };
 })();

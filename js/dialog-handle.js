@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var userDialog = window.utils.userDialog;
-  var dialogHandle = window.utils.dialogHandle;
+  var userDialog = document.querySelector('.setup');
+  var dialogHandle = userDialog.querySelector('.upload');
 
   window.dialogHandle = {
     handle: dialogHandle,
