@@ -11,6 +11,8 @@
   var userNameInput = userDialog.querySelector('.setup-user-name');
   var setupSubmit = userDialog.querySelector('.setup-submit');
 
+  var form = userDialog.querySelector('.setup-wizard-form');
+
   // Валидация полей
   var onUserNameInputInvalid = function () {
     if (userNameInput.validity.valueMissing) {
@@ -32,6 +34,17 @@
     }
   };
 
+  // Отправка формы
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+
+    window.save(new FormData(form), function () {
+      userDialog.classList.add('hidden');
+    }, window.utils.errorHandler);
+
+    onClosePopup();
+  };
+
   // Настройки внешнего вида мага
   var setupWizardCoat = userDialog.querySelector('.setup-wizard .wizard-coat');
   var setupWizardEyes = userDialog.querySelector('.setup-wizard .wizard-eyes');
@@ -41,15 +54,15 @@
   var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
 
   var onChangeCoatColor = function () {
-    window.colorizeWizard(setupWizardCoat, 'coat', setupWizardCoatInput);
+    window.wizards.colorize(setupWizardCoat, 'coat', setupWizardCoatInput);
   };
 
   var onChangeEyeColor = function () {
-    window.colorizeWizard(setupWizardEyes, 'eye', setupWizardEyesInput);
+    window.wizards.colorize(setupWizardEyes, 'eye', setupWizardEyesInput);
   };
 
   var onChangeFireBallColor = function () {
-    window.colorizeWizard(setupWizardFireball, 'fireBall', setupWizardFireballInput);
+    window.wizards.colorize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
   };
 
   // Обработчик поведения "ручки" окна персонажа, за которую мы можем его перетаскивать
@@ -76,7 +89,8 @@
   var dialogHandle = userDialog.querySelector('.upload');
 
   var onOpenPopup = function () {
-    userDialog.classList.remove('hidden');
+    window.load(window.wizards.render, window.utils.errorHandler);
+
     document.addEventListener('keydown', onPopupKeyDown);
 
     dialogHandle.addEventListener('mousedown', onDialogHandleMouseDown);
@@ -93,6 +107,10 @@
 
     userNameInput.addEventListener('invalid', onUserNameInputInvalid);
     userNameInput.addEventListener('input', onUserNameInputChange);
+
+    form.addEventListener('submit', onFormSubmit);
+
+    userDialog.classList.remove('hidden');
   };
 
   var onClosePopup = function () {
@@ -101,6 +119,8 @@
     userDialog.style.left = window.dialogHandle.left;
 
     userDialog.classList.add('hidden');
+    window.wizards.removeSimilar();
+
     document.removeEventListener('keydown', onPopupKeyDown);
 
     dialogHandle.removeEventListener('mousedown', onDialogHandleMouseDown);
@@ -117,6 +137,8 @@
 
     userNameInput.removeEventListener('invalid', onUserNameInputInvalid);
     userNameInput.removeEventListener('input', onUserNameInputChange);
+
+    form.removeEventListener('submit', onFormSubmit);
   };
 
   setupOpen.addEventListener('click', onOpenPopup);
