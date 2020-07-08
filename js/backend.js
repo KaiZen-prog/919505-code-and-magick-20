@@ -10,7 +10,7 @@
     OK: 200
   };
 
-  var dataExchangeHandler = function (xhr, onLoad, onError) {
+  var successHandler = function (xhr, onLoad, onError) {
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
@@ -35,7 +35,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    dataExchangeHandler(xhr, onLoad, onError);
+    successHandler(xhr, onLoad, onError);
     errorHandler(xhr, onError);
 
     xhr.open('POST', URL_SEND);
@@ -47,7 +47,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    dataExchangeHandler(xhr, onSuccess, onError);
+    successHandler(xhr, onSuccess, onError);
     errorHandler(xhr, onError);
 
     xhr.open('GET', URL_GET);

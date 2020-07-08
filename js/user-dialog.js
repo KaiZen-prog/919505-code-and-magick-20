@@ -13,10 +13,6 @@
 
   var form = userDialog.querySelector('.setup-wizard-form');
 
-  var onFormSubmitSuccess = function () {
-    userDialog.classList.add('hidden');
-  };
-
   // Валидация полей
   var onUserNameInputInvalid = function () {
     if (userNameInput.validity.valueMissing) {
@@ -41,7 +37,11 @@
   // Отправка формы
   var onFormSubmit = function (evt) {
     evt.preventDefault();
-    window.save(new FormData(form), onFormSubmitSuccess, window.utils.errorHandler);
+
+    window.save(new FormData(form), function () {
+      userDialog.classList.add('hidden');
+    }, window.utils.errorHandler);
+
     onClosePopup();
   };
 
@@ -89,7 +89,7 @@
   var dialogHandle = userDialog.querySelector('.upload');
 
   var onOpenPopup = function () {
-    window.load(window.wizards.handler, window.utils.errorHandler);
+    window.load(window.wizards.render, window.utils.errorHandler);
 
     document.addEventListener('keydown', onPopupKeyDown);
 

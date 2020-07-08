@@ -11,7 +11,7 @@
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var setupSimilarList = userDialog.querySelector('.setup-similar-list');
 
-  var handler = function (data) {
+  var render = function (data) {
     var wizards = window.utils.getRandomArrayElementsCollection(data, WIZARD_QUANTITY);
 
     var fragment = document.createDocumentFragment();
@@ -69,7 +69,7 @@
   };
 
   window.wizards = {
-    handler: handler,
+    render: render,
     removeSimilar: removeSimilar,
     colorize: colorize
   };
