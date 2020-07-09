@@ -54,15 +54,15 @@
   var setupWizardFireballInput = userDialog.querySelector('input[name="fireball-color"]');
 
   var onChangeCoatColor = function () {
-    window.wizards.colorize(setupWizardCoat, 'coat', setupWizardCoatInput);
+    window.wizards.customize(setupWizardCoat, 'coat', setupWizardCoatInput);
   };
 
   var onChangeEyeColor = function () {
-    window.wizards.colorize(setupWizardEyes, 'eye', setupWizardEyesInput);
+    window.wizards.customize(setupWizardEyes, 'eye', setupWizardEyesInput);
   };
 
   var onChangeFireBallColor = function () {
-    window.wizards.colorize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
+    window.wizards.customize(setupWizardFireball, 'fireBall', setupWizardFireballInput);
   };
 
   // Обработчик поведения "ручки" окна персонажа, за которую мы можем его перетаскивать
@@ -89,7 +89,7 @@
   var dialogHandle = userDialog.querySelector('.upload');
 
   var onOpenPopup = function () {
-    window.load(window.wizards.render, window.utils.errorHandler);
+    window.load(window.wizards.onLoad, window.utils.errorHandler);
 
     document.addEventListener('keydown', onPopupKeyDown);
 
